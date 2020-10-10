@@ -1,0 +1,56 @@
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">ImageExplorer</a>
+    <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="onSubmit(searchForm.value)">
+        <input formControlName="search" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</nav>
+<ul class="nav">
+
+    <li class="nav-item" *ngFor="let c of categories">
+        <a class="nav-link" [ngClass]="{'active': c.value === category}" (click)="selectCategory(c.value)">{{c.label}}</a>
+    </li>
+
+</ul>
+
+
+<div class="row">
+    <div class="col-6 d-flex" *ngFor="let image of images" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+        <img (click)="selectImage(image)" [src]="image.webformatURL" class="img-fluid m-3 ">
+    </div>
+</div>
+
+<ng-container #vc></ng-container>
+
+
+<ng-template #modal_1>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="card" style="width: 100%;">
+                        <img [src]="image.url" class="card-img-top">
+                        <div class="card-body">
+                            <p>Likes: {{image.likes}}</p>
+                            <p>Vistas: {{image.views}}</p>
+                        </div>
+                        <div>
+                            <span class="badge badge-secondary m-2" *ngFor="let tag of image.tags">
+                            {{tag}}
+                        </span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeDialog()">Close </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</ng-template>

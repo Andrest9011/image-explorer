@@ -1,0 +1,11 @@
+img {
+    cursor: pointer;
+}
+
+.active {
+    color: black;
+}
+
+.nav-link {
+    cursor: pointer;
+}
